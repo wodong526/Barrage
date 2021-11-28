@@ -9,7 +9,7 @@ from PySide2.QtCore import Qt, QPoint, QParallelAnimationGroup, QEasingCurve, QP
 from PySide2.QtGui import QFont, QMovie
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QLabel, QApplication
 
-gif_path = r''      #gif路径（包括gif本身）
+gif_path = r''      #gif路径（包括gif本身，不支持中文路径。）
 text = u''          #弹幕内容
 
 class barrageWindow(QWidget):
