@@ -1,38 +1,38 @@
 #coding:gbk
 #*******************************************
-#×÷Õß: ÎÒ–|
+#ä½œè€…: æˆ‘æ±
 #mail:wodong526@dingtalk.com
 #time:2021/11/28
-#°æ±¾£ºV1.0
+#ç‰ˆæœ¬ï¼šV1.1
 #******************************************
 
 from PySide2.QtCore import Qt, QPoint, QParallelAnimationGroup, QEasingCurve, QPropertyAnimation
 from PySide2.QtGui import QFont, QMovie
 from PySide2.QtWidgets import QWidget, QHBoxLayout, QLabel, QApplication
 
-gif_path = r''      #gifÂ·¾¶£¨°üÀ¨gif±¾Éí£©
-text = u''          #µ¯Ä»ÄÚÈİ
+gif_path = r''      #gifè·¯å¾„ï¼ˆåŒ…æ‹¬gifæœ¬èº«ï¼‰
+text = u''          #å¼¹å¹•å†…å®¹
 
 class barrageWindow(QWidget):
     def __init__(self):
         super(barrageWindow, self).__init__()
-        self.setWindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint)#ÉèÖÃ´°¿ÚÎªÎŞ±ß¿ò´°¿ÚÇÒÔÚ´°¿Ú×îÇ°·½ÏÔÊ¾
-        self.setAttribute(Qt.WA_TranslucentBackground, True)               #ÉèÖÃ´°¿ÚÊôĞÔÎª±³¾°Í¸Ã÷
+        self.setWindowFlags(Qt.FramelessWindowHint|Qt.WindowStaysOnTopHint)#è®¾ç½®çª—å£ä¸ºæ— è¾¹æ¡†çª—å£ä¸”åœ¨çª—å£æœ€å‰æ–¹æ˜¾ç¤º
+        self.setAttribute(Qt.WA_TranslucentBackground, True)               #è®¾ç½®çª—å£å±æ€§ä¸ºèƒŒæ™¯é€æ˜
 
-        self.label_aim = QLabel(self)                                      #Õâ¸ö¿Ø¼ş¿ÉÒÔÏÔÊ¾ÎÄ±¾ºÍÍ¼Ïñ¡¢¶¯»­
+        self.label_aim = QLabel(self)                                      #è¿™ä¸ªæ§ä»¶å¯ä»¥æ˜¾ç¤ºæ–‡æœ¬å’Œå›¾åƒã€åŠ¨ç”»
         self.label_tex = QLabel(self)
 
-        self.main_layout = QHBoxLayout(self)                               #Éú³Éºá²¼¾Ö
+        self.main_layout = QHBoxLayout(self)                               #ç”Ÿæˆæ¨ªå¸ƒå±€
         self.main_layout.addWidget(self.label_aim)
         self.main_layout.addWidget(self.label_tex)
 
-        self.desktop = QApplication.instance().desktop()                   #ÀàËÆ»ñÈ¡ËùÓĞÏÔÊ¾Æ÷£¨ÓĞÃ÷°×µÄ´óÀĞÂé·³½Ì½ÌÎÒ^_^£©
+        self.desktop = QApplication.instance().desktop()                   #ç±»ä¼¼è·å–æ‰€æœ‰æ˜¾ç¤ºå™¨ï¼ˆæœ‰æ˜ç™½çš„å¤§ä½¬éº»çƒ¦æ•™æ•™æˆ‘^_^ï¼‰
 
         self.setText(text)
         self.setAim(gif_path)
 
     def setText(self, tex):
-        self.Font_obj = QFont(u"Î¢ÈíÑÅºÚ", 30)
+        self.Font_obj = QFont(u"å¾®è½¯é›…é»‘", 30)
         self.label_tex.setText(tex)
         self.label_tex.setFont(self.Font_obj)
         self.label_tex.setStyleSheet('color:rgb(255, 255, 0)')
@@ -43,29 +43,29 @@ class barrageWindow(QWidget):
         self.movie_obj.start()
 
     def initAim(self, start, end):
-        prop_aim = QPropertyAnimation(self, 'pos')#ÉèÖÃ¶¯»­
+        prop_aim = QPropertyAnimation(self, 'pos')#è®¾ç½®åŠ¨ç”»
         prop_aim.setStartValue(start)
         prop_aim.setEndValue(end)
 
-        prop_aim.setEasingCurve(QEasingCurve.OutInCubic)#¼ÓËÙ¶È±ä»¯·½Ê½£¬ÆäËü·½Ê½²Î¼ûhttps://doc.bccnsoft.com/docs/PyQt4/qeasingcurve.html#Type-enum
+        prop_aim.setEasingCurve(QEasingCurve.OutInCubic)#åŠ é€Ÿåº¦å˜åŒ–æ–¹å¼ï¼Œå…¶å®ƒæ–¹å¼å‚è§https://doc.bccnsoft.com/docs/PyQt4/qeasingcurve.html#Type-enum
 
-        prop_aim.setDuration(20000)                     #¶¯»­Ê±³¤£¬µ¥Î»£ºÎ¢Ãë
+        prop_aim.setDuration(20000)                     #åŠ¨ç”»æ—¶é•¿ï¼Œå•ä½ï¼šå¾®ç§’
 
-        self.aim_grp = QParallelAnimationGroup(self)    #Éú³ÉÒ»¸ö¶¯»­×é£¬¿ÉÒÔ¼ÓÈëÆäËü¿Ø¼ş
-        self.aim_grp.addAnimation((prop_aim))           #½«Õâ¸ö¶¯»­´°¿Ú·ÅÈë¶¯»­×é
-        self.aim_grp.finished.connect(self.stop)        #½«ĞÅºÅºÍ²ÛÁ´½Ó
-        self.aim_grp.start()                            #¶¯»­×é¿ªÊ¼¶¯»­
+        self.aim_grp = QParallelAnimationGroup(self)    #ç”Ÿæˆä¸€ä¸ªåŠ¨ç”»ç»„ï¼Œå¯ä»¥åŠ å…¥å…¶å®ƒæ§ä»¶
+        self.aim_grp.addAnimation((prop_aim))           #å°†è¿™ä¸ªåŠ¨ç”»çª—å£æ”¾å…¥åŠ¨ç”»ç»„
+        self.aim_grp.finished.connect(self.stop)        #å°†ä¿¡å·å’Œæ§½é“¾æ¥
+        self.aim_grp.start()                            #åŠ¨ç”»ç»„å¼€å§‹åŠ¨ç”»
 
     def stop(self):
-        self.aim_grp.stop()#¶¯»­×éÍ£Ö¹
-        self.movie_obj.setFileName('')#ÉèÖÃÒ»¸ö¿Õ¶ÔÏóÀ´ÊÍ·ÅÖ®Ç°µÄgifÕ¼ÓÃ
-        self.close()       #´°¿Ú¹Ø±Õ
+        self.aim_grp.stop()#åŠ¨ç”»ç»„åœæ­¢
+        self.movie_obj.setFileName('')#è®¾ç½®ä¸€ä¸ªç©ºå¯¹è±¡æ¥é‡Šæ”¾ä¹‹å‰çš„gifå ç”¨
+        self.close()       #çª—å£å…³é—­
 
     def run(self):
         super(barrageWindow, self).show()
-        start_poistion = QPoint(self.desktop.screenGeometry().width(), 100)#µ¯Ä»·¢³öµÄ³õÊ¼Î»ÖÃ£¨ËùÓĞÏÔÊ¾×ÀÃæµÄ¿íÏñËØ£¬ ´ÓÉÏÏòÏÂµÚ100¸öÏñËØ£©
-        end_poistion = QPoint(-500, 100)                                   #µ¯Ä»µÄ½áÊøÎ»ÖÃ
-        self.move(start_poistion)                                          #ÒÆ¶¯´°¿Úµ½³õÊ¼Î»ÖÃ
+        start_poistion = QPoint(self.desktop.screenGeometry().width(), 100)#å¼¹å¹•å‘å‡ºçš„åˆå§‹ä½ç½®ï¼ˆæ‰€æœ‰æ˜¾ç¤ºæ¡Œé¢çš„å®½åƒç´ ï¼Œ ä»ä¸Šå‘ä¸‹ç¬¬100ä¸ªåƒç´ ï¼‰
+        end_poistion = QPoint(-500, 100)                                   #å¼¹å¹•çš„ç»“æŸä½ç½®
+        self.move(start_poistion)                                          #ç§»åŠ¨çª—å£åˆ°åˆå§‹ä½ç½®
         self.initAim(start_poistion, end_poistion)
 
 a = barrageWindow()
